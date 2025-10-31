@@ -1,5 +1,14 @@
 <?php
 
+function base_path($path)
+
+    {
+
+        return __DIR__ . "/../" . $path;
+
+    }
+
+
 function view($view, $data = [])
 {
 
@@ -8,7 +17,7 @@ function view($view, $data = [])
         $$key = $value;
     }
 
-    require "views/template/app.php";
+    require base_path("views/template/app.php");
 };
 
 function abort($code)
@@ -23,13 +32,13 @@ function abort($code)
 
 function flash(){
 
-    return new Flash;
+    return new core\Flash;
 
 }
 
 function config($chave = null){
 
-    $config = require 'config.php'; 
+    $config = require base_path('config.php');
 
     if(strlen($chave) > 0){
 

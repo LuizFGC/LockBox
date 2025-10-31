@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Models;
+use DB;
+
 class Usuarios_livros
 {
     public $id_usuario;

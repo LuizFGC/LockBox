@@ -1,16 +1,27 @@
 <?php
 
-$controller = 'index';
+use Core\Route;
+use App\Controllers\IndexController;
+use App\Controllers\LoginController;
+use App\Controllers\DashboardController;
+use App\Controllers\RegistroController;
 
-if (isset($_SERVER['PATH_INFO'])) {
 
-    $controller = str_replace('/', '', parse_url($_SERVER['PATH_INFO'])['path']);
-}
+(new Route())
+
+    ->get('/', IndexController::class)
 
 
-if (! file_exists("../controllers/{$controller}.controller.php")) {
+    ->get('/login',[LoginController::class, 'index'])
 
-    abort(404);
-}
+    ->post('/login', [LoginController::class, 'login'])
 
-require "../controllers/{$controller}.controller.php";
+    ->get('/dashboard', DashboardController::class)
+
+    ->get('/registro', [RegistroController::class, 'index'])
+    ->post('/registro', [RegistroController::class, 'registro'])
+
+    ->run();
+
+
+

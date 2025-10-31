@@ -1,20 +1,26 @@
 <?php
 
 
+require "../Core/functions.php";
 
-require "../models/Usuarios_livros.php";
+spl_autoload_register(function($class){
 
-require "../models/Usuario.php";
+      require "../{$class}.php";
+
+});
+
+
+
 
 session_start();
 
-require "../Flash.php";
+//require "../Flash.php";
 
-require  "../functions.php";
+//require "../Core/functions.php";
 
-$config = require "../config.php";
+//$config = require "../config.php";
 
-require "../database.php";
+//require "../DB.php";
 
 require "../routes.php";
 

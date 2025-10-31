@@ -1,7 +1,13 @@
 <?php
 
 
-class usuario
+namespace App\Models;
+
+use core\DB;
+
+use core\Validacao;
+
+class Usuario
 {
 
     public $id;
@@ -20,59 +26,59 @@ class usuario
     {
         $database = new DB(config('database'));
 
-            // Validações Cadastro
+        // Validações Cadastro
 
-            $validacao = Validacao::validar([
+        $validacao = Validacao::validar([
 
-                'nome' => ['required'],
+            'nome' => ['required'],
 
-                'email' => ['required', 'email', 'unique:usuarios'],
+            'email' => ['required', 'email', 'unique:usuarios'],
 
-                'senha' => ['required', 'confirmed', 'min:8']
+            'senha' => ['required', 'confirmed', 'min:8']
 
-            ], $_POST);
+        ], $_POST);
 
-            if ($validacao->naoPassou('registrar')) {
+        if ($validacao->naoPassou('registrar')) {
 
-              view('registro');
-
-                exit();
-            }
-
-            $database->query(
-
-                query: "insert into usuarios (nome, email, senha, role, imagem_perfil) values ( :nome, :email, :senha, :role, :imagem)",
-
-                params: [
-
-                    'nome' => $_POST['nome'],
-
-                    'email' => $_POST['email'],
-
-                    'senha' => password_hash($_POST['senha'], PASSWORD_DEFAULT),
-
-                    'role' => 1,
-
-                    'imagem' => '..\imgs\render-3d-personaje-avatar_23-2150611783.webp'
-                ]
-
-            );
-
-            flash()->push('mensagem', 'Registrado com sucesso! Faça Login ');
-
-            header('location:/login');
+            view('registro');
 
             exit();
+        }
+
+        $database->query(
+
+            query: "insert into usuarios (nome, email, senha, role, imagem_perfil) values ( :nome, :email, :senha, :role, :imagem)",
+
+            params: [
+
+                'nome' => $_POST['nome'],
+
+                'email' => trim($_POST['email']),
+
+                'senha' => password_hash($_POST['senha'], PASSWORD_DEFAULT),
+
+                'role' => 1,
+
+                'imagem' => '..\imgs\render-3d-personaje-avatar_23-2150611783.webp'
+            ]
+
+        );
+
+        flash()->push('mensagem', 'Registrado com sucesso! Faça Login ');
+
+        header('location:/login');
+
+        exit();
 
     }
 
     public static function login()
     {
- 
+
         $database = new DB(config('database'));
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $email = $_POST['email'];
+            $email = trim($_POST['email']);
 
             $senha = $_POST['senha'];
 
@@ -105,7 +111,7 @@ class usuario
 
             )->fetch();
 
-            if (! $usuario) {
+            if (!$usuario) {
 
                 flash()->push('validacoes_login', ['Usuario ou senha estão incorretos! ']);
 
@@ -117,7 +123,7 @@ class usuario
 
             if ($usuario) {
 
-                if (! password_verify($_POST['senha'], $usuario->senha)) {
+                if (!password_verify($_POST['senha'], $usuario->senha)) {
 
                     flash()->push('validacoes_login', ['Usuario ou senha estão incorretos! ']);
 
@@ -141,18 +147,18 @@ class usuario
 
         session_destroy();
 
-       header('location: /usuarios');
+        header('location: /usuarios');
     }
-    
+
     public static function excluirConta()
     {
 
-        if (! isAdmin()) {
+        if (!isAdmin()) {
 
             abort(404);
 
             die();
-        }        
+        }
 
         $database = new DB(config('database'));
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isAdmin()) {
@@ -180,7 +186,7 @@ class usuario
     public static function permissoes()
     {
 
-        if (! isAdmin()) {
+        if (!isAdmin()) {
 
             abort(404);
 
@@ -212,39 +218,42 @@ class usuario
         }
     }
 
-    public static function getUsuarios(){
-        
+    public static function getUsuarios()
+    {
+
         $database = new DB(config('database'));
-        return  $database->query(
+        return $database->query(
 
-        query: "select * from usuarios", 
+            query: "select * from usuarios",
 
-        class: usuario::class,
+            class: usuario::class,
 
-        )->fetchAll() ;
+        )->fetchAll();
 
     }
 
-    public static function getUser(){
-        
+    public static function getUser()
+    {
+
         $database = new DB(config('database'));
-        return  $database->query(
+        return $database->query(
 
-        query: "select * from usuarios where id = :id", 
+            query: "select * from usuarios where id = :id",
 
-        class: usuario::class,
+            class: usuario::class,
 
-        params: [
+            params: [
 
-            'id' => $_SESSION['auth']->id
+                'id' => $_SESSION['auth']->id
 
-        ]
+            ]
 
-        )->fetch() ;
+        )->fetch();
 
     }
 
-    public static function salvarFoto(){
+    public static function salvarFoto()
+    {
 
         $novoNome = md5(rand());
 
@@ -278,9 +287,9 @@ class usuario
 
     }
 
-    public static function editarCadastro(){
+    public static function editarCadastro()
+    {
 
-        
 
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+namespace Core;
 class DB
 {
 
@@ -10,7 +11,7 @@ class DB
 
         $connectionString = $config['driver'] . ':' . $config['database']; 
 
-        $this->db = new PDO($connectionString);
+        $this->db = new \PDO($connectionString);
     }
 
 
@@ -21,7 +22,7 @@ class DB
 
         if($class){
 
-            $prepare->setFetchMode(PDO::FETCH_CLASS, $class);
+            $prepare->setFetchMode(\PDO::FETCH_CLASS, $class);
 
         }
 
@@ -33,4 +34,3 @@ class DB
     
 }
 
-$database = new DB($config['database']);

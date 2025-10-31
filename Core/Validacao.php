@@ -1,5 +1,7 @@
 <?php
 
+namespace core;
+
 class Validacao
 
 {
@@ -52,7 +54,9 @@ class Validacao
     private function email($campo, $valor)
     {
 
-        if (strlen($valor) > 0 && ! filter_var($valor, FILTER_VALIDATE_EMAIL)) {
+        $email = trim($valor);
+
+        if (strlen($email) > 0 && ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
             $this->validacoes[] = "O $campo é inválido. ";
         }
