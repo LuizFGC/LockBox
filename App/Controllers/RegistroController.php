@@ -10,7 +10,7 @@ class RegistroController
     public function index(){
 
 
-      return  view('registro');
+      return  view('registro', template: 'guest');
 
 
     }

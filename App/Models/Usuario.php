@@ -147,7 +147,7 @@ class Usuario
 
         session_destroy();
 
-        header('location: /usuarios');
+        header('location: /login');
     }
 
     public static function excluirConta()

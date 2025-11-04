@@ -6,7 +6,7 @@ return [
 
         'driver' => 'sqlite', 
 
-        'database' => '../database.sqlite'
+        'database' => '../database/database.sqlite'
     ]
 
 ]; 

@@ -2,14 +2,14 @@
 
 namespace App\Controllers;
 
-class IndexController
+class PerfilController
 {
 
     public function __invoke(){
 
-    return  view('index', template: 'guest');
+        return  view('perfil');
 
-}
+    }
 
 
 

@@ -9,7 +9,7 @@ function base_path($path)
     }
 
 
-function view($view, $data = [])
+function view($view, $data = [], $template = 'app')
 {
 
     foreach ($data as $key => $value) {
@@ -17,7 +17,7 @@ function view($view, $data = [])
         $$key = $value;
     }
 
-    require base_path("views/template/app.php");
+    require base_path("views/template/$template.php");
 };
 
 function abort($code)
@@ -38,7 +38,7 @@ function flash(){
 
 function config($chave = null){
 
-    $config = require base_path('config.php');
+    $config = require base_path('/config/config.php');
 
     if(strlen($chave) > 0){
 

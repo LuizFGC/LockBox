@@ -13,44 +13,10 @@
 </head>
 
 <body>
-<!-- Navbar -->
-<?php require "../views/partials/navbar.php" ?>
-
-
-<!-- Barra Pesquisa -->
-<?php require "../views/partials/pesquisa.php" ?>
-
-
-<!-- Menu e Forms -->
-<div class=" h-svh  mx-auto max-w-screen-lg mt-6 flex  ">
-
-
-    <ul class="menu bg-base-300 rounded-l-box w-56">
-        <button class="btn w-full ">
-            <a href="/criar"> + Nova Nota </a>
-        </button>
-
-        <?php foreach ($notas as $nota): ?>
-            <li><a><?=$nota->titulo?></a></li>
-        <?php endforeach; ?>
-
-    </ul>
-
-    <div class="bg-base-200 w-full rounded-r-box p-6 ">
-
-        <?php require "../views/{$view}.view.php" ?>
-
-    </div>
-
-
-</div>
 
 
 
-
-
-
-
+<?php require "../views/{$view}.view.php" ?>
 
 
 </body>

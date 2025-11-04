@@ -2,18 +2,19 @@
 
 namespace App\Controllers;
 
+use App\Models\Usuario;
+
+use App\Models\Nota;
+
 class DashboardController
 
 {
 
     public function __invoke(){
+        $notas = Nota::getNotas();
+        $usuario = Usuario::getUser();
 
-        if(!logado()){
-
-            return  abort(404);
-        }
-
-        view('dashboard');
+     return  view('dashboard', compact('usuario', 'notas'), template: 'app');
 
 
     }

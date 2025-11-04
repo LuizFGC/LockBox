@@ -22,5 +22,5 @@ session_start();
 
 //require "../DB.php";
 
-require "../routes.php";
+require "../config/routes.php";
 
